@@ -24,7 +24,7 @@ type SQLDataBase struct {
 	Password string
 }
 
-//Load ...
+//Load ....
 func (c *Config) Load() error {
 	err := c.loadFromFile(configPath)
 	if err != nil {
