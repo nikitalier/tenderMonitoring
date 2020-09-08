@@ -1,0 +1,6 @@
+[[DataBase]]
+    Server = "0.0.0.0"
+    DataBase = "postgres"
+    Port = 5432
+    User = "postgres"
+    Password = "mysecretpassword"
