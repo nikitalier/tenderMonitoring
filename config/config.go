@@ -2,6 +2,7 @@ package config
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/BurntSushi/toml"
 )
@@ -12,17 +13,30 @@ const (
 
 //Config ...
 type Config struct {
-	DataBase []SQLDataBase `toml:"DataBase"`
+	DataBase  []SQLDataBase `toml:"DataBase"`
+	ServerOpt ServerOpt     `toml:"ServerOpt"`
 }
 
 //SQLDataBase ...
 type SQLDataBase struct {
-	Server   string `toml:"Server"`
-	DataBase string `toml:"DataBase"`
-	Port     int    `toml:"Port"`
-	User     string
-	Password string
+	Server     string `toml:"Server"`
+	DataBase   string `toml:"DataBase"`
+	Port       int    `toml:"Port"`
+	User       string `toml:"User"`
+	Password   string `toml:"Password"`
+	SearchPath string `toml:"SearchPath"`
+	Driver     string `toml:"Driver"`
 }
+
+//ServerOpt ...
+type ServerOpt struct {
+	Port           string   `toml:"Port"`
+	AllowedHeaders []string `toms:"AllowedHeaders"`
+	ExposedHeaders []string `toms:"ExposedHeaders"`
+	AllowedMethods []string `toms:"AllowedMethods"`
+}
+
+type duration time.Duration
 
 //Load ....
 func (c *Config) Load() error {

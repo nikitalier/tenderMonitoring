@@ -4,3 +4,31 @@
     Port = 5432
     User = "postgres"
     Password = "mysecretpassword"
+	SearchPath = "\"TenderMonitoring\""
+    Driver = "postgres"
+
+[ServerOpt]
+  Port = ":3001"
+  AllowedMethods = [
+    "GET",
+		"POST",
+		"PUT",
+		"DELETE",
+		"OPTIONS",
+		"HEAD",]
+  AllowedHeaders = [
+    "Access-Control-Allow-Origin",
+    "x-access-token",
+		"Origin",
+		"Authorisation",
+		"Content-Type",
+		"Secret",
+  ]
+  ExposedHeaders = [
+    "Access-Control-Allow-Origin",
+    "x-access-token",
+		"Origin",
+		"Authorisation",
+		"Content-Type",
+		"Secret",
+  ]
