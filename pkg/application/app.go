@@ -1,29 +1,31 @@
 package application
 
 import (
-	"log"
 	"net/http"
 
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
+	"github.com/rs/zerolog"
 
 	"github.com/nikitalier/tenderMonitoring/config"
 	"github.com/nikitalier/tenderMonitoring/pkg/service"
 )
 
-//Application ...
+//Application struct
 type Application struct {
-	serv *http.Server
-	svc  *service.Service
+	serv   *http.Server
+	svc    *service.Service
+	logger zerolog.Logger
 }
 
-//Options ...
+//Options struct
 type Options struct {
-	Svc  *service.Service
-	Serv config.ServerOpt
+	Svc    *service.Service
+	Serv   config.ServerOpt
+	Logger zerolog.Logger
 }
 
-//New ...
+//New - init app
 func New(opt *Options) *Application {
 	var allowedHeaders = handlers.AllowedHeaders(opt.Serv.AllowedHeaders)
 
@@ -44,6 +46,7 @@ func New(opt *Options) *Application {
 		serv: &http.Server{
 			Addr: opt.Serv.Port,
 		},
+		logger: opt.Logger,
 	}
 
 	app.serv.Handler = handlers.CORS(
@@ -54,12 +57,12 @@ func New(opt *Options) *Application {
 		allowedOriginValidator,
 	)(app.setupRoutes())
 
-	log.Println("App started on port" + opt.Serv.Port)
+	app.logger.Info().Msg("App started on port" + opt.Serv.Port)
 
 	return app
 }
 
-//Start ...
+//Start app
 func (app *Application) Start() {
 	app.serv.ListenAndServe()
 }
@@ -89,8 +92,6 @@ func (app *Application) setupRoutes() *mux.Router {
 	r.HandleFunc("/tenderstatus", app.getTenderStatus).Methods("GET")
 
 	r.HandleFunc("/summary", app.getSummary).Methods("GET")
-
-	r.HandleFunc("/test", app.testHandler).Methods("GET")
 
 	return r
 }

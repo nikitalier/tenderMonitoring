@@ -13,8 +13,16 @@ const (
 
 //Config ...
 type Config struct {
+	AppName   string        `toml:"AppName"`
+	Env       string        `toml:"Env"`
 	DataBase  []SQLDataBase `toml:"DataBase"`
 	ServerOpt ServerOpt     `toml:"ServerOpt"`
+	Logging   Logging       `toml:"Logging"`
+}
+
+//Logging ..
+type Logging struct {
+	ElasticsearchHost []string `toml:"ElasticsearchHosts"`
 }
 
 //SQLDataBase ...
@@ -38,7 +46,7 @@ type ServerOpt struct {
 
 type duration time.Duration
 
-//Load ....
+//Load config file
 func (c *Config) Load() error {
 	err := c.loadFromFile(configPath)
 	if err != nil {

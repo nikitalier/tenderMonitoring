@@ -7,11 +7,9 @@ import (
 //UpdateFavorite ...
 func (s *Service) UpdateFavorite(f models.Favorite) {
 	if s.repository.FavoriteExists(f.TenderID, f.UserID) {
-		// log.Println("1")
 		s.repository.UpdateFavorite(f)
 	} else {
 		s.repository.AddNewFavorite(f)
-		// log.Println("2")
 	}
 }
 

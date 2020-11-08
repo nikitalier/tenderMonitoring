@@ -17,16 +17,17 @@ func (s *Service) GetTender(id int) (tender models.Tender) {
 //GetTenderStatus ...
 func (s *Service) GetTenderStatus(id int) (status models.TenderStatus) {
 	status = s.repository.GetTenderStatusByID(id)
-	// log.Println(status)
 	return status
 }
 
+//CreateTenderStatus ...
 func (s *Service) CreateTenderStatus(id int) {
 	if !s.repository.StatusExists(id) {
 		s.repository.CreateTenderStatus(id)
 	}
 }
 
+//UpdateTenderStatus ...
 func (s *Service) UpdateTenderStatus(status models.TenderStatus) {
 	s.repository.UpdateTenderStatus(status)
 }

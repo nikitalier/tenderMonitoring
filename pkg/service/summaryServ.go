@@ -4,6 +4,7 @@ import (
 	"github.com/nikitalier/tenderMonitoring/pkg/models"
 )
 
+//GetSummary ...
 func (s *Service) GetSummary() (summary models.Summary) {
 	summary.CountTenders = s.repository.CountAllTenders()
 	summary.CountKeywords = s.repository.CountAllKeywords()

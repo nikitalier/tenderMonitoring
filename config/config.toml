@@ -1,3 +1,6 @@
+AppName = "tenderMonitoring"
+Env = "local"
+
 [[DataBase]]
     Server = "0.0.0.0"
     DataBase = "postgres"
@@ -32,3 +35,6 @@
 		"Content-Type",
 		"Secret",
   ]
+
+[Logging]
+  ElasticsearchHosts= ["http://localhost:9200"]

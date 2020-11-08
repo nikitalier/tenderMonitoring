@@ -1,7 +1,6 @@
 package service
 
 import (
-	"log"
 	"time"
 
 	"github.com/nikitalier/tenderMonitoring/pkg/models"
@@ -26,16 +25,11 @@ func (s *Service) DeleteKeywords(ids string) bool {
 }
 
 //AddKeyword ...
-// func (s *Service) AddKeyword(keyword models.Keyword) bool {
-// 	return s.repository.AddKeyword(keyword)
-// }
-
-//AddKeyword ...
 func (s *Service) AddKeyword(keyword models.Keyword) (id int, result bool) {
 	var err error
 	keyword.AddDateTime, err = time.Parse(dateFormat, keyword.AddDateString)
 	if err != nil {
-		log.Println(err)
+		s.logger.Error().Msg(err.Error())
 	}
 	id, result = s.repository.AddKeyword(keyword)
 	return id, result

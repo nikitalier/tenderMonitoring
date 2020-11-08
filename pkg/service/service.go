@@ -1,29 +1,20 @@
 package service
 
 import (
-	"github.com/nikitalier/tenderMonitoring/pkg/models"
 	"github.com/nikitalier/tenderMonitoring/pkg/repository"
+	"github.com/rs/zerolog"
 )
 
 //Service -
 type Service struct {
 	repository *repository.Repository
+	logger     *zerolog.Logger
 }
 
 //New - init service
-func New(rep *repository.Repository) *Service {
+func New(rep *repository.Repository, logger *zerolog.Logger) *Service {
 	return &Service{
 		repository: rep,
+		logger:     logger,
 	}
-}
-
-//Test is just a test
-func (s *Service) Test() {
-	// log.Println(s.repository.FavExists(2, 5))
-	// s.repository.FindFavorite(1, 1)
-	var f models.Favorite
-	f.TenderID = 1
-	f.UserID = 5
-	f.Status = false
-	s.repository.UpdateFavorite(f)
 }
